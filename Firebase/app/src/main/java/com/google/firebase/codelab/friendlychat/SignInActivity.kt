@@ -59,31 +59,37 @@ class SignInActivity : AppCompatActivity() {
         // If there is no signed in user, launch FirebaseUI
         // Otherwise head to MainActivity
         if (Firebase.auth.currentUser == null) {
-            // Sign in with FirebaseUI, see docs for more details:
-            // https://firebase.google.com/docs/auth/android/firebaseui
-            // Choose authentication providers
-            val providers = listOf(
-                AuthUI.IdpConfig.EmailBuilder().build(),
-                //AuthUI.IdpConfig.PhoneBuilder().build(),
-                AuthUI.IdpConfig.GoogleBuilder().build(),
-                //AuthUI.IdpConfig.FacebookBuilder().build(),
-                //AuthUI.IdpConfig.TwitterBuilder().build(),
-            )
-            val signInIntent = AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setAvailableProviders(providers)
-                .setLogo(R.mipmap.ic_launcher)
-                .setTheme(R.style.AppTheme) // Use the custom theme
-                .build()
-
-            signInLauncher.launch(signInIntent)
+            signIn()
         } else {
+            // Se o utilizador já tem login feito com sucesso, volta ao tema normal
+            setTheme(R.style.AppTheme)
+
             goToMainActivity()
         }
     }
 
     private fun signIn() {
-        // TODO: implement
+        // Esconde a ActionBar antes de abrir o ecrã de login para evitar sobreposição
+        setTheme(R.style.AppThemeNoActionBar)
+
+        // Sign in with FirebaseUI, see docs for more details:
+        // https://firebase.google.com/docs/auth/android/firebaseui
+        // Choose authentication providers
+        val providers = listOf(
+            AuthUI.IdpConfig.EmailBuilder().build(),
+            //AuthUI.IdpConfig.PhoneBuilder().build(),
+            AuthUI.IdpConfig.GoogleBuilder().build(),
+            //AuthUI.IdpConfig.FacebookBuilder().build(),
+            //AuthUI.IdpConfig.TwitterBuilder().build(),
+        )
+        val signInIntent = AuthUI.getInstance()
+            .createSignInIntentBuilder()
+            .setAvailableProviders(providers)
+            .setLogo(R.mipmap.ic_launcher)
+            .setTheme(R.style.AppTheme) // Mantém o tema que o FirebaseUI vai usar internamente
+            .build()
+
+        signInLauncher.launch(signInIntent)
     }
 
     private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult) {

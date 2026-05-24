@@ -132,13 +132,13 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        //adapter.startListening()
+        adapter.startListening()
     }
 
-//    public override fun onStop() {
-//        adapter.stopListening()
-//        super.onStop()
-//    }
+    public override fun onStop() {
+        adapter.stopListening()
+        super.onStop()
+    }
 
 //    public override fun onPause() {
 //        adapter.stopListening()
