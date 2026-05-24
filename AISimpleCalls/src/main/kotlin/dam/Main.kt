@@ -44,7 +44,8 @@ fun main() = runBlocking {
 
         // Process input
         val output = assistant.processInput(input)
-        println("\n🤖 Answer: $output\n\n")
+        //println("\n🤖 Answer: $output\n\n")
+        println("\n🤖 Sentiment Analysis Result:\n$output\n")
     }
 
     // Bye message
